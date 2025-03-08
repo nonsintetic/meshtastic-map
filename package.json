@@ -4,7 +4,17 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node src/index.js",
+    "start:mqtt": "node src/mqtt.js",
+    "start:admin": "node src/admin.js",
+    "dev": "concurrently \"npm run start\" \"npm run start:mqtt\"",
+    "start:all": "concurrently \"npm run start\" \"npm run start:mqtt\"",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "setup": "npm install && npm run prisma:generate",
+    "deploy": "npm run setup && npm run prisma:migrate && npm run start:all"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +28,7 @@
     "protobufjs": "^7.2.6"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "jest": "^29.7.0",
     "prisma": "^5.10.2"
   }
